@@ -72,10 +72,10 @@ ang_vel = [0, 0, 0]
 
 [env.disturbances.action]
 fn = "normal"
-scale = 0.001
+scale = 0.000
 
 [env.disturbances.dynamics]
 fn = "uniform"
 [env.disturbances.dynamics.kwargs]
-minval = [-0.1, -0.1, -0.1]
-maxval = [0.1, 0.1, 0.1]
+minval = [-0.0, -0.0, -0.0]
+maxval = [0.0, 0.0, 0.0]
