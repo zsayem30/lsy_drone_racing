@@ -66,7 +66,7 @@ def generate_performance_table(
 # ==========================================
 
 def plot_controller_comparison_pid_mpc_sqp(files_to_load: Dict[str, str]):
-    print("## 🏆 Controller Type Comparison (PID vs MPC vs SQP) 🏆")
+    print("## Controller Type Comparison (PID vs MPC vs SQP)")
     print("-" * 60)
     
     all_performance_dfs = []
@@ -100,12 +100,12 @@ def plot_controller_comparison_pid_mpc_sqp(files_to_load: Dict[str, str]):
     comparison_df["RMSE Tracking Error"] = comparison_df["RMSE Tracking Error"].apply(lambda x: f"{x:.4f}" if not pd.isna(x) else 'NaN')
     comparison_df["Solver Time [s]"] = comparison_df["Solver Time [s]"].apply(lambda x: f"{x:.4f}" if not pd.isna(x) else 'N/A')
     
-    print("\n### 📋 Full Lap-by-Lap Performance Table 📋")
+    print("\n### Full Lap-by-Lap Performance Table")
     print(comparison_df.to_markdown(numalign="left", stralign="left"))
     print("-" * 60)
     
     ## --- Quick Summary Table ---
-    print("\n### 📊 Quick Summary of Successful Runs (Averages) 📊")
+    print("\n### Quick Summary of Successful Runs (Averages) ")
     
     summary_df = raw_comparison_df[raw_comparison_df['Success'] == True].groupby('Solver').agg({
         "Lap Time [s]": ['mean', 'min', 'count'],
@@ -135,7 +135,7 @@ def plot_controller_comparison_pid_mpc_sqp(files_to_load: Dict[str, str]):
 # ==========================================
 
 def plot_horizon_comparison_sqp_mpc(experiment_files: Dict[str, Dict[int, str]]):
-    print("## 🏆 Performance Comparison by Prediction Horizon (N) 🏆")
+    print("## Performance Comparison by Prediction Horizon (N) ")
     print("### Metrics (Rows) vs. (Solver, Horizon) (Columns)")
     print("-" * 100)
     
