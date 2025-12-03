@@ -40,7 +40,7 @@ def generate_performance_table(all_runs_data: List[Dict[str, Any]], solver_name:
             # RMSE of the tracking error (kept as float)
             "RMSE Tracking Error": run_data.get('rmse_tracking_error', np.nan),
             # Converted Solver Time (seconds)
-            "Solver Time [s]": solver_time_s,
+            "Solver Time [ms]": solver_time_ms,
         }
         table_data.append(lap_data)
 
@@ -114,7 +114,7 @@ if __name__ == "__main__":
         summary_df = raw_comparison_df[raw_comparison_df['Success'] == True].groupby(['Solver', 'Disturbance Scale']).agg({
             "Lap Time [s]": ['mean', 'min', 'count'],
             "RMSE Tracking Error": 'mean',
-            "Solver Time [s]": 'mean'
+            "Solver Time [ms]": 'mean'
         })
         
         # Flatten the MultiIndex columns
@@ -126,7 +126,7 @@ if __name__ == "__main__":
             'Lap Time [s]_mean': 'Avg Lap Time [s]',
             'Lap Time [s]_min': 'Best Lap Time [s]',
             'RMSE Tracking Error_mean': 'Avg RMSE Tracking Error',
-            'Solver Time [s]_mean': 'Avg Solver Time [s]'
+            'Solver Time [ms]_mean': 'Avg Solver Time [ms]'
         })
 
         # 4. Transpose the DataFrame and use MultiIndex for columns
