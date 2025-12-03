@@ -60,20 +60,20 @@ if __name__ == "__main__":
     
     # New experiment file structure for robustness testing
     experiment_files = {
-        'SQP': {
-            0.001: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/SQP_scale_0_001.npy',
-            0.005: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/SQP_scale_0_005.npy',
-            0.01: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/SQP_scale_0_01.npy'
+        'RTI SQP NMPC': {
+            0.001: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/RTI_SQP_NMPC_noise_0_001.npy',
+            0.005: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/RTI_SQP_NMPC_noise_0_005.npy',
+            0.01: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/RTI_SQP_NMPC_noise_0_01.npy'
         },
-        'MPC': {
-            0.001: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/MPC_scale_0_001.npy',
-            0.005: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/MPC_scale_0_005.npy',
-            0.01: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/MPC_scale_0_01.npy'
+        'SQP NMPC': {
+            0.001: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/SQP_NMPC_noise_0_001.npy',
+            0.005: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/SQP_MPC_noise_0_005.npy',
+            0.01: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/SQP_MPC_noise_0_01.npy'
         },
         'PID': {
-            0.001: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID_scale_0_001.npy',
-            0.005: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID_scale_0_005.npy',
-            0.01: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID_scale_0_01.npy'
+            0.001: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID_noise_0_001.npy',
+            0.005: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID_noise_0_005.npy',
+            0.01: r'/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID_noise_0_01.npy'
         }
     }
 
