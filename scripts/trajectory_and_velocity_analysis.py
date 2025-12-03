@@ -239,13 +239,13 @@ def generate_comparison_plots(files_to_plot: List[str], titles: List[str], plott
     # print(df)
 
 
-titles = ['PID', 'MPC', 'SQP-NMPC']
+titles = ['PID', 'SQP NMPC (without RTI)', 'SQP NMPC (with RTI)']
 plotter_instance = RacingPlotter(WAYPOINTS, GATE_DATA, config=MOCK_CONFIG)
 
 all_runs_data_list = [
-        '/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID.npy', 
-        '/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/MPC_30.npy', 
-        '/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/SQP_30.npy'
+        '/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/PID_test_run.npy', 
+        '/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/sqp_nmpc_test_run.npy', 
+        '/content/repos/lsy_drone_racing/lsy_drone_racing/experiments/rti_sqp_nmpc_test_run.npy'
     ]
 
 # Run the function to generate and display the two separate plots
