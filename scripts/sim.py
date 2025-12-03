@@ -359,8 +359,28 @@ def simulate(
         gui = config_obj.sim.gui
     else:
         config_obj.sim.gui = gui
-    
 
+    # Optionally override the controller prediction horizon N from the CLI.
+    # This is picked up in controllers like AttitudeMPC / AttitudeMPCRTI via config.controller.N.
+    if N is not None:
+        try:
+            N_int = int(N)
+            ctrl_cfg = getattr(config_obj, "controller", None)
+            # Handle both single-controller config ([controller]) and potential multi-controller ([[controller]])
+            if isinstance(ctrl_cfg, list):
+                for idx, c in enumerate(ctrl_cfg):
+                    setattr(c, "N", N_int)
+                print(f"[sim_new] Set controller[*].N = {N_int} from CLI")
+            elif ctrl_cfg is not None:
+                setattr(ctrl_cfg, "N", N_int)
+                # Try to show which controller this applies to
+                ctrl_file = getattr(ctrl_cfg, "file", controller)
+                print(f"[sim_new] Set controller.N = {N_int} from CLI for '{ctrl_file}'")
+            else:
+                print(f"[sim_new] WARNING: Config has no 'controller' section; cannot apply N={N_int}")
+        except Exception as e:
+            print(f"[sim_new] WARNING: Failed to set prediction horizon N from CLI: {e}")
+            
     control_path = Path(__file__).parents[1] / "lsy_drone_racing/control"
     controller_path = control_path / (controller or config_obj.controller.file)
     controller_cls = load_controller(controller_path)
