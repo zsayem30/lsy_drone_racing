@@ -341,11 +341,12 @@ class MetricTracker:
 def simulate(
     config: str = "level0.toml",
     controller: str | None = None,
-    n_runs: int = 1,
+    n_runs: int = 3,
     N: int | None = None,
     gui: bool | None = None,
     record_video: bool = False,
-    save_file_as: str = "race_video",
+    save_summary_only: bool = False,
+    save_file_as: str = "default_run",
     disturbance_scale: float = 0.0,
     plot_mode: str = "evolution" # 'comparison' or 'evolution'
 ) -> List[Dict]:
@@ -544,31 +545,36 @@ def simulate(
 
     # print(ep_results)
     
-
-    np.save(f"{save_path}/{save_file_as}.npy", np.array(ep_results))
-
-
-    all_runs_data = np.load(f"{save_path}/{save_file_as}.npy", allow_pickle=True).tolist()
-    if all_runs_data:
-        performance_df = generate_performance_table(all_runs_data)
-        
-        print("\n## Performance Metrics Per Lap ")
-        print("-" * 70)
-        print(performance_df.to_markdown(numalign="left", stralign="left"))
-        print("-" * 70)
+    final_summary = [avg_lap, success_rate, avg_rmse, avg_solver]
+    
+    if save_summary_only:
+      print("summary stats stored only in the format: success rate, avg lap time, avg tracking RMSE, avg solver time: ")
+      np.save(f"{save_path}/experiment_horizon/{save_file_as}/{save_file_as}_horizon_{N}_summary.npy", np.array(final_summary))
     else:
-        print("No data available to generate the table or plots.")
-        
-    # 3. Generate the 3D velocity heatmap plot (XY and XZ planes)
-    if all_runs_data:
-        plotter_example = RacingPlotter(WAYPOINTS, GATE_DATA, config=MOCK_CONFIG)
-        plot_trajectory_with_velocity_heatmap_3d(
-            all_runs_data, 
-            plotter_example, 
-            run_index_to_color=-1, # Plot the last run as the heatmap
-            fig_title="Final Lap Velocity Heatmap (XY and XZ Planes)",
-            save_file=f"{save_path}/{save_file_as}_plot.png"
-        )
+      np.save(f"{save_path}/{save_file_as}.npy", np.array(ep_results))
+
+
+      all_runs_data = np.load(f"{save_path}/{save_file_as}.npy", allow_pickle=True).tolist()
+      if all_runs_data:
+          performance_df = generate_performance_table(all_runs_data)
+          
+          print("\n## Performance Metrics Per Lap ")
+          print("-" * 70)
+          print(performance_df.to_markdown(numalign="left", stralign="left"))
+          print("-" * 70)
+      else:
+          print("No data available to generate the table or plots.")
+          
+      # 3. Generate the 3D velocity heatmap plot (XY and XZ planes)
+      if all_runs_data:
+          plotter_example = RacingPlotter(WAYPOINTS, GATE_DATA, config=MOCK_CONFIG)
+          plot_trajectory_with_velocity_heatmap_3d(
+              all_runs_data, 
+              plotter_example, 
+              run_index_to_color=-1, # Plot the last run as the heatmap
+              fig_title="Final Lap Velocity Heatmap (XY and XZ Planes)",
+              save_file=f"{save_path}/{save_file_as}_plot.png"
+          )
 
 
     env.close()
