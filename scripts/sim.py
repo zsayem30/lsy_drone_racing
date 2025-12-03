@@ -342,6 +342,7 @@ def simulate(
     config: str = "level0.toml",
     controller: str | None = None,
     n_runs: int = 1,
+    N: int | None = None,
     gui: bool | None = None,
     record_video: bool = False,
     save_file_as: str = "race_video",
@@ -370,16 +371,16 @@ def simulate(
             if isinstance(ctrl_cfg, list):
                 for idx, c in enumerate(ctrl_cfg):
                     setattr(c, "N", N_int)
-                print(f"[sim_new] Set controller[*].N = {N_int} from CLI")
+                print(f"[sim] Set controller[*].N = {N_int} from CLI")
             elif ctrl_cfg is not None:
                 setattr(ctrl_cfg, "N", N_int)
                 # Try to show which controller this applies to
                 ctrl_file = getattr(ctrl_cfg, "file", controller)
-                print(f"[sim_new] Set controller.N = {N_int} from CLI for '{ctrl_file}'")
+                print(f"[sim] Set controller.N = {N_int} from CLI for '{ctrl_file}'")
             else:
-                print(f"[sim_new] WARNING: Config has no 'controller' section; cannot apply N={N_int}")
+                print(f"[sim] WARNING: Config has no 'controller' section; cannot apply N={N_int}")
         except Exception as e:
-            print(f"[sim_new] WARNING: Failed to set prediction horizon N from CLI: {e}")
+            print(f"[sim] WARNING: Failed to set prediction horizon N from CLI: {e}")
             
     control_path = Path(__file__).parents[1] / "lsy_drone_racing/control"
     controller_path = control_path / (controller or config_obj.controller.file)
